@@ -39,7 +39,7 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
+        /* Header Styles - Fixed */
         header {
             padding: 20px 0;
             position: fixed;
@@ -61,6 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
         }
 
         .logo {
@@ -68,13 +69,15 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            flex-shrink: 0;
+            min-width: 0; /* Allows text truncation */
         }
 
         .logo img {
             height: 40px;
             width: auto;
             filter: invert(1);
-            transition: all 0.5s ease;
+            transition: all 1s ease;
         }
 
         .logo:hover img {
@@ -86,6 +89,9 @@
             font-weight: 700;
             color: var(--light);
             position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .logo-text::after {
@@ -114,6 +120,7 @@
             font-weight: 500;
             position: relative;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -143,8 +150,58 @@
             font-size: 24px;
             cursor: pointer;
             z-index: 1001;
+            padding: 8px;
+            margin-left: 10px;
         }
 
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--light);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--light);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Rest of your existing styles... */
         /* Hero Section */
         .hero {
             padding: 180px 0 100px;
@@ -286,15 +343,15 @@
         }
 
         .section-title {
-    margin-bottom: 60px;
-    font-size: 2.5rem;
-    position: relative;
-    display: block; /* Changed from inline-block to block for full-width centering */
-    text-align: center; /* Center text within the element */
-    color: var(--light);
-    width: 100%; /* Ensure it spans the container */
-    left: 0; /* Remove left offset */
-}
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            position: relative;
+            display: block;
+            text-align: center;
+            color: var(--light);
+            width: 100%;
+            left: 0;
+        }
 
         .section-title::after {
             content: '';
@@ -393,14 +450,12 @@
             width: 100%;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
-            filter: grayscale(100%) contrast(120%);
-            transform-style: preserve-3d;
+            transition: all 5s ease;
+            
         }
 
         .meme-image:hover {
-            transform: rotateY(10deg) scale(1.05);
-            filter: grayscale(0%) contrast(100%);
+            transform: rotate(720deg);
         }
 
         /* Contract Section */
@@ -858,10 +913,103 @@
             }
         }
 
+        /* Minecraft Section Styles */
+.minecraft-section {
+    position: relative;
+    padding: 100px 0;
+    background: url('mincraftbg.jpg') no-repeat center center;
+    background-size: cover;
+    color: var(--light);
+    text-align: center;
+    overflow: hidden;
+}
+
+.minecraft-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+}
+
+.minecraft-content {
+    position: relative;
+    z-index: 1;
+}
+
+.minecraft-details {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.minecraft-text {
+    flex: 1;
+    text-align: left;
+}
+
+.minecraft-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--light);
+}
+
+.minecraft-text p {
+    margin-bottom: 25px;
+    color: var(--gray-light);
+}
+
+.server-info {
+    margin: 30px 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: var(--light);
+    font-size: 1.1rem;
+}
+
+.info-item i {
+    color: #4CAF50; /* Minecraft green */
+    width: 25px;
+    text-align: center;
+}
+
+.minecraft-image {
+    flex: 1;
+}
+
+.mc-character {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.mc-character:hover {
+    transform: scale(1.05);
+}
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 3rem;
+            }
+
+            .logo img {
+                display: none;
             }
             
             .about-content {
@@ -872,31 +1020,34 @@
             .social-links {
                 justify-content: center;
             }
+
+            .minecraft-details {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .minecraft-text {
+                text-align: center;
+            }
+            
+            .server-info {
+                justify-content: center;
+            }
+            
+            .info-item {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(0, 0, 0, 0.95);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 20px 0;
-                gap: 30px;
-                z-index: 999;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
+            /* Show mobile menu button */
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            /* Hide desktop nav */
+            .nav-links {
+                display: none;
             }
             
             .hero {
@@ -930,6 +1081,18 @@
             .about-text h3 {
                 font-size: 1.5rem;
             }
+
+            .minecraft-section {
+                padding: 80px 0;
+            }
+            
+            .minecraft-text h3 {
+                font-size: 1.5rem;
+            }
+            
+            .info-item {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -960,6 +1123,18 @@
             .warning-title {
                 font-size: 1.5rem;
             }
+
+            .minecraft-section {
+                padding: 60px 0;
+            }
+            
+            .minecraft-details {
+                padding: 20px;
+            }
+            
+            .minecraft-text h3 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -985,6 +1160,17 @@
             </button>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#about" class="mobile-menu-link">About</a>
+        <a href="#contract" class="mobile-menu-link">Contract</a>
+        <a href="#allocation" class="mobile-menu-link">Allocation</a>
+        <a href="#community" class="mobile-menu-link">Community</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1066,13 +1252,50 @@
             </div>
         </div>
     </section>
+    <!-- Minecraft Server Section -->
+<section id="minecraft" class="minecraft-section">
+    <div class="minecraft-overlay"></div>
+    <div class="container">
+        <div class="minecraft-content" data-aos="fade-up">
+            <h2 class="section-title">Official Minecraft Server</h2>
+            <div class="minecraft-details">
+                <div class="minecraft-text">
+                    <h3>Join our Radius Coin Minecraft Community</h3>
+                    <p>Connect with other Radius Coin holders in our official Minecraft server. Play, build, and earn rewards while engaging with our community in a fun, interactive environment.</p>
+                    
+                    <div class="server-info">
+                        <div class="info-item">
+                            <i class="fas fa-server"></i>
+                            <span>Server IP: Mincraft.radiusproxy.app</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Version: 1.20+</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Game Mode: Survival</span>
+                        </div>
+                    </div>
+                    
+                    <a href="Mincraft.radiusproxy.app" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add to Minecraft
+                    </a>
+                </div>
+                <div class="minecraft-image" data-aos="fade-left">
+                    <img src="mincraft.jpg" alt="Minecraft Character" class="mc-character" style="border-radius:5px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Warning Section -->
     <section class="warning-section">
         <div class="container warning-container">
             <h3 class="warning-title" data-aos="fade-up">IMPORTANT</h3>
             <div class="warning-content" data-aos="fade-up" data-aos-delay="200">
-                <p>Always verify the contract address before purchasing Radius Coin. Only use the official contract address: E2E5ZL6HB3GodTo8b9bhdyZH6hcfDCFxCnneq4RCpump. Check that all characters match exactly, as scammers frequently create fake contracts with similar addresses.</p>
+                <p>Always verify the contract address before purchasing Radius Coin. Only use the official contract address: E2E5ZL6HB3GodTo8b9bhdyZH6hcfDC<br>FxCnneq4RCpump. Check that all characters match exactly, as scammers frequently create fake contracts with similar addresses.</p>
                 <p>Never trust addresses shared in DMs or social media. Bookmark the official website and documentation for reference. Remember that transactions cannot be reversed – taking an extra minute to verify could protect your assets.</p>
                 <p>Radius Coin is not intended to be an investment opportunity, investment contract, or security of any type. It is not available to persons or entities in restricted jurisdictions. Users acknowledge that digital assets involve inherent risks and potential for complete loss.</p>
                 <p>Price data displayed on the site is from DEXScreener and may be delayed or inaccurate. Prices displayed in USD. Always verify current market price through multiple sources before trading. Nothing on this site constitutes financial, legal, or investment advice. See terms and conditions.</p>
@@ -1156,6 +1379,26 @@
             }
         });
 
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
         // Copy contract address
         document.getElementById('copyBtn').addEventListener('click', function() {
             const contractAddress = document.getElementById('contractAddress').textContent;
@@ -1182,24 +1425,6 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
-        });
-
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
 
